@@ -18,19 +18,14 @@ function App() {
       <CssBaseline />
       <Router>
         <Routes>
-          <Route element={<SharedLayout />}>
+          <Route
+            element={<SharedLayout setUserId={setUserId} userId={userId} />}
+          >
             <Route
-              index
+              path="/login"
               element={<Login setUserId={setUserId} setRole={setRole} />}
             />
-            <Route
-              path="/home"
-              element={
-                <ProtectedRoute userID={userId}>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
+            <Route index element={<Home />} />
           </Route>
           <Route path="*" element={<Error />} />
         </Routes>

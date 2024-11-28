@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Twitter, Facebook, LinkedIn } from "@mui/icons-material";
 import logo from "../assets/react.svg";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 // Liste des liens de navigation
 const links = [
@@ -42,7 +42,7 @@ const social = [
   },
 ];
 
-const Navbar = () => {
+const Navbar = ({ userId, setUserId }) => {
   const [showLinks, setShowLinks] = useState(false);
   const linksContainerRef = useRef(null);
   const linksRef = useRef(null);
@@ -74,11 +74,17 @@ const Navbar = () => {
     }
   }, [showLinks]);
 
+  const logout = (e) => {
+    e.preventDefault();
+    setUserId(null);
+  };
+
   return (
     <nav ref={navbarRef}>
       <div className="nav-center">
         <div className="nav-header">
           <img src={logo} alt="logo" className="logo" />
+          <h4 className="nav-title">Camping security</h4>
           <button
             className="nav-toggle"
             onClick={() => setShowLinks(!showLinks)}
@@ -93,10 +99,47 @@ const Navbar = () => {
 
               return (
                 <li key={id}>
-                  <a href={url}>{text}</a>
+                  <NavLink
+                    to="/"
+                    style={({ isActive }) => ({
+                      color: isActive
+                        ? "hsl(205, 78%, 60%)"
+                        : "hsl(209, 34%, 30%)",
+                    })}
+                  >
+                    {text}
+                  </NavLink>
                 </li>
               );
             })}
+            {userId !== null ? (
+              <li key={4}>
+                <NavLink
+                  to="#"
+                  style={({ isActive }) => ({
+                    color: isActive
+                      ? "hsl(205, 78%, 60%)"
+                      : "hsl(209, 34%, 30%)",
+                  })}
+                  onClick={logout}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            ) : (
+              <li key={4}>
+                <NavLink
+                  to="/login"
+                  style={({ isActive }) => ({
+                    color: isActive
+                      ? "hsl(205, 78%, 60%)"
+                      : "hsl(209, 34%, 30%)",
+                  })}
+                >
+                  Se Connecter
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
         <ul className="social-icons">

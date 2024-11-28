@@ -190,6 +190,22 @@ textarea:focus {
   overflow-y: auto; /* Pour gérer le défilement vertical si nécessaire */
 }
 
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  transition: background-color 1000s ease-in-out 0s !important; /* Évite que le style soit rapidement réinitialisé */
+  color: white !important;
+  -webkit-text-fill-color: black;
+}
+
+input:-webkit-autofill::first-line,
+textarea:-webkit-autofill::first-line,
+select:-webkit-autofill::first-line {
+  -webkit-text-fill-color: transparent !important; /* Utilise la couleur du texte courante */
+  color: white !important;
+  -webkit-text-fill-color: black;
+}
+
 /*
 ===============
 Navbar
@@ -199,11 +215,15 @@ nav {
   background: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
+.nav-title {
+  padding: 1rem;
+}
 .nav-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .nav-toggle {
   font-size: 1.5rem;
@@ -230,7 +250,7 @@ nav {
 }
 .links a:hover {
   background: hsl(205, 86%, 81%);
-  color: hsl(205, 78%, 60%);
+  color: hsl(205, 78%, 60%) !important;
   padding-left: 1.5rem;
 }
 .social-icons {
@@ -244,7 +264,13 @@ nav {
 .show-container {
   height: 10rem;
 }
-@media screen and (min-width: 800px) {
+/* GRAND ECRAN */
+@media screen and (min-width: 850px) {
+  .nav-title {
+    padding: 0;
+    margin-top: 0.8rem;
+    margin-left: 1rem;
+  }
   .nav-center {
     max-width: 1170px;
     margin: 0 auto;

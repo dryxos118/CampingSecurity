@@ -6,15 +6,18 @@ import {
   Alert,
   IconButton,
   InputAdornment,
+  InputLabel,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ setUserId, setRole }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const navigation = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -33,7 +36,8 @@ const Login = ({ setUserId, setRole }) => {
         const token = data.token;
         setUserId(Number(id));
         setRole(role);
-        localStorage.setItem("token", data.token);
+        sessionStorage.setItem("token", token);
+        navigation("/");
       } catch (e) {
         console.log(e);
       }
@@ -68,8 +72,11 @@ const Login = ({ setUserId, setRole }) => {
           <form onSubmit={handleLogin}>
             {/* Champ Email */}
             <div className="mb-3">
+              <InputLabel htmlFor="email" className="mb-1">
+                Email
+              </InputLabel>
               <TextField
-                label="Email"
+                id="email"
                 type="email"
                 fullWidth
                 required
@@ -80,8 +87,11 @@ const Login = ({ setUserId, setRole }) => {
 
             {/* Champ Mot de Passe */}
             <div className="mb-3">
+              <InputLabel htmlFor="password" className="mb-1">
+                Mot de passe
+              </InputLabel>
               <TextField
-                label="Mot de passe"
+                id="password"
                 type={showPassword ? "text" : "password"}
                 fullWidth
                 required

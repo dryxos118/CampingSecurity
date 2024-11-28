@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 
-const SharedLayout = () => {
+const SharedLayout = ({ userId, setUserId }) => {
   return (
     <>
-      <Navbar />
+      <Navbar userId={userId} setUserId={setUserId} />
       <Outlet />
     </>
   );
