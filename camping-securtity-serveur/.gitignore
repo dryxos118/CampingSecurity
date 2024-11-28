@@ -1,0 +1,21 @@
+# Node.js modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+.docker/
+docker-compose*.log
+*.log
+volumes/
+db_data/
+
+# Fichiers de configuration spécifiques à l'environnement
+.env
+
+# Build outputs
+/dist
+/build
